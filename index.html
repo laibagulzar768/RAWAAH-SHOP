@@ -126,18 +126,30 @@ function updateCart(){
   document.getElementById("cartCount").innerText = cart.length;
   document.getElementById("total").innerText = "Total: Rs "+total;
 }
-function sendWhatsAppOrder(){
-  let name = document.getElementById("name").value.trim();
-  let phone = document.getElementById("phone").value.trim();
-  if(!name || !phone){alert("Please enter your name and phone number!"); return;}
-  if(cart.length===0){alert("Cart is empty!"); return;}
-  let total=0, orderText="";
-  cart.forEach(item=>{total+=item.price; orderText+=`• ${item.name} (${item.size}) - Rs ${item.price}%0A`;});
-  let message=`🛒 RAWAAH ORDER%0A%0A👤 Customer: ${name}%0A📞 Phone: ${phone}%0A%0A🛍️ Items:%0A${orderText}%0A💰 Total: Rs ${total}%0A%0A💳 Payment sent to Gulzar Ahmad - 03279432355 (JazzCash/Easypaisa)%0A📸 Screenshot attached.`;
-  window.open("https://wa.me/923279432355?text="+message,"_blank");
-  cart=[]; updateCart(); toggleCart();
-}
 
+function sendWhatsAppOrder(){
+  let name=document.getElementById("name").value
+  let phone=document.getElementById("phone").value
+
+  if(!name || !phone){
+    alert("Please enter your name and phone number!")
+    return
+  }
+
+  let total=0
+  let orderText=""
+  cart.forEach(item=>{
+    total+=item.price
+    orderText+=`• ${item.name} (${item.size}) - Rs ${item.price}%0A`
+  })
+
+  let message=`🛒 RAWAAH ORDER%0A%0A👤 Customer: ${name}%0A📞 Phone: ${phone}%0A%0A🛍️ Items:%0A${orderText}%0A💰 Total: Rs ${total}%0A%0A💳 Payment sent to 03279432355 (JazzCash/Easypaisa)%0A📸 Screenshot attached.`
+
+  window.open("https://wa.me/923279432355?text="+message,"_blank")
+  cart=[]
+  updateCart()
+  toggleCart()
+}
 // PRODUCTS DATA
 const products=[
 {name:"Stylish Patterned Brown Loafers",price:2500,images:["https://i.ibb.co/kg4fP3X6/Generated-Image-March-13-2026-1-51-PM.png","https://i.ibb.co/LhYSjtx2/Hyperrealistic-photograph-of-the-same-brown-leathe-delpmaspu.jpg","https://i.ibb.co/HpY6LyqW/Generated-Image-March-13-2026-12-31-PM.png"]},
