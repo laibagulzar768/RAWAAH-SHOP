@@ -128,25 +128,37 @@ function updateCart(){
 }
 
 function sendWhatsAppOrder(){
-  let name=document.getElementById("name").value
-  let phone=document.getElementById("phone").value
+  let name = document.getElementById("name").value
+  let phone = document.getElementById("phone").value
 
   if(!name || !phone){
     alert("Please enter your name and phone number!")
     return
   }
 
-  let total=0
-  let orderText=""
-  cart.forEach(item=>{
-    total+=item.price
-    orderText+=`• ${item.name} (${item.size}) - Rs ${item.price}%0A`
+  let total = 0
+  let orderText = ""
+  cart.forEach(item => {
+    total += item.price
+    orderText += `• ${item.name} (${item.size}) - Rs ${item.price}\n`
   })
 
-  let message=`🛒 RAWAAH ORDER%0A%0A👤 Customer: ${name}%0A📞 Phone: ${phone}%0A%0A🛍️ Items:%0A${orderText}%0A💰 Total: Rs ${total}%0A%0A💳 Payment sent to 03279432355 (JazzCash/Easypaisa)%0A📸 Screenshot attached.`
+  let message = `🛒 RAWAAH ORDER
 
-  window.open("https://wa.me/923279432355?text="+message,"_blank")
-  cart=[]
+👤 Customer: ${name}
+📞 Phone: ${phone}
+
+🛍️ Items:
+${orderText}
+💰 Total: Rs ${total}
+
+💳 Payment sent to Gulzar Ahmad - 03279432355 (JazzCash/Easypaisa)
+📸 Screenshot attached.`
+
+  // Encode properly for URL
+  window.open("https://wa.me/923279432355?text=" + encodeURIComponent(message), "_blank")
+
+  cart = []
   updateCart()
   toggleCart()
 }
