@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>RAWAAH | TIME MOTION YOU</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
+
+body{
+background:#f7f7f7;
+color:#222;
+overflow-x:hidden;
+}
+
+/* HERO SECTION */
+.hero{
+height:100vh;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+background:url("https://i.ibb.co/hJVN5DSY/RAWAAH.jpg") center/cover no-repeat;
+}
+
+/* Gradient overlay */
+.hero::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(
+to bottom,
+rgba(0,0,0,0.55),
+rgba(0,0,0,0.35),
+rgba(0,0,0,0.65)
+);
+}
+
+/* Content */
+.hero-content{
+position:relative;
+z-index:2;
+text-align:center;
+color:white;
+padding:20px;
+max-width:600px;
+animation:heroFade 1.2s ease;
+}
+
+.hero h1{
+font-size:64px;
+letter-spacing:8px;
+font-weight:600;
+margin-bottom:10px;
+}
+
+.hero p{
+font-size:18px;
+letter-spacing:3px;
+margin-bottom:30px;
+opacity:0.9;
+}
+
+/* Button */
+.shop-btn{
+background:white;
+color:black;
+padding:14px 40px;
+border:none;
+border-radius:40px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:all .35s ease;
+}
+
+.shop-btn:hover{
+background:black;
+color:white;
+transform:translateY(-3px);
+}
+
+/* Animation */
+@keyframes heroFade{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* Mobile */
+@media(max-width:768px){
+.hero h1{
+font-size:42px;
+letter-spacing:4px;
+}
+.hero p{
+font-size:16px;
+}
+}
+
+/* PRODUCTS */
+.products{
+padding:60px 20px;
+}
+
+.products h2{
+text-align:center;
+margin-bottom:40px;
+}
+
+.carousel{
+display:flex;
+gap:20px;
+overflow-x:auto;
+scroll-behavior:smooth;
+}
+
+/* PRODUCT CARD */
+.product{
+min-width:260px;
+background:white;
+border-radius:10px;
+padding:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.15);
+text-align:center;
+}
+
+/* IMAGE SLIDER */
+.product-slider{
+position:relative;
+height:200px;
+overflow:hidden;
+}
+
+.product-slider img{
+width:100%;
+height:200px;
+object-fit:cover;
+display:none;
+border-radius:8px;
+}
+
+.product-slider img.active{
+display:block;
+}
+
+.slide-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,0.6);
+color:white;
+border:none;
+padding:5px 10px;
+cursor:pointer;
+}
+
+.prev{left:5px}
+.next{right:5px}
+
+.price{
+font-weight:600;
+margin:10px 0;
+}
+
+select{
+padding:6px;
+margin-bottom:10px;
+}
+
+.add{
+background:black;
+color:white;
+border:none;
+padding:10px 16px;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* CART */
+.cart-icon{
+position:fixed;
+top:20px;
+right:20px;
+background:black;
+color:white;
+width:50px;
+height:50px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+z-index:1000;
+}
+
+.cart-count{
+position:absolute;
+top:-5px;
+right:-5px;
+background:red;
+padding:3px 6px;
+font-size:12px;
+border-radius:50%;
+}
+
+.cart{
+position:fixed;
+right:-360px;
+top:0;
+width:360px;
+height:100%;
+background:white;
+padding:20px;
+box-shadow:-4px 0 15px rgba(0,0,0,0.2);
+transition:.4s;
+overflow:auto;
+}
+
+.cart.open{
+right:0;
+}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+}
+
+.total{
+font-weight:bold;
+margin-top:10px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:10px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+.paymentBox{
+margin-top:15px;
+background:#f2f2f2;
+padding:12px;
+border-radius:6px;
+}
+
+.payBtn{
+width:100%;
+margin-top:10px;
+padding:12px;
+background:#25D366;
+border:none;
+color:white;
+font-weight:600;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* WHATSAPP BUTTON */
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+width:55px;
+height:55px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+color:white;
+text-decoration:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="cart-icon" onclick="toggleCart()">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
+
+<div class="cart" id="cart">
+
+<h3>Your Cart</h3>
+
+<div id="cartItems"></div>
+
+<div class="total" id="total"></div>
+
+<input id="name" placeholder="Your Name">
+<input id="phone" placeholder="Phone Number">
+
+<div class="paymentBox">
+
+<b>Payment Method</b><br><br>
+
+Send payment via:
+
+JazzCash / Easypaisa
+
+<br>
+
+Number: <b>03279432355</b>
+
+<br><br>
+
+After payment click WhatsApp button and attach screenshot.
+
+</div>
+
+<button onclick="sendWhatsAppOrder()" class="payBtn">
+
+Send Order on WhatsApp
+
+</button>
+
+</div>
+
+<section class="hero">
+
+<div class="hero-content">
+
+<h1>RAWAAH</h1>
+
+<p>TIME MOTION YOU</p>
+
+<button class="shop-btn" onclick="scrollProducts()">
+Shop Now
+</button>
+
+</div>
+
+</section>
+
+<section class="products" id="products">
+
+<h2>Our Collection</h2>
+
+<div class="carousel" id="carousel"></div>
+
+</section>
+
+<a class="whatsapp" href="https://wa.me/923279432355">💬</a>
+
+<script>
+
+let cart=[]
+
+function scrollProducts(){
+document.getElementById("products").scrollIntoView({behavior:"smooth"})
+}
+
+function toggleCart(){
+document.getElementById("cart").classList.toggle("open")
+}
+
+function addCart(name,price,sizeId){
+
+let size=document.getElementById(sizeId).value
+
+cart.push({name,price,size})
+
+updateCart()
+
+}
+
+function updateCart(){
+
+let items=document.getElementById("cartItems")
+items.innerHTML=""
+
+let total=0
+
+cart.forEach(i=>{
+
+total+=i.price
+
+items.innerHTML+=`
+<div class="cart-item">
+<span>${i.name} (${i.size})</span>
+<span>Rs ${i.price}</span>
+</div>
+`
+
+})
+
+document.getElementById("cartCount").innerText=cart.length
+document.getElementById("total").innerText="Total: Rs "+total
+
+}
+
+function sendWhatsAppOrder(){
+
+let name=document.getElementById("name").value
+let phone=document.getElementById("phone").value
+
+let total=0
+let orderText=""
+
+cart.forEach(item=>{
+total+=item.price
+orderText+=item.name+" ("+item.size+") - Rs "+item.price+"%0A"
+})
+
+let message=
+`RAWAAH ORDER%0A%0A`+
+`Customer: ${name}%0A`+
+`Phone: ${phone}%0A%0A`+
+`Items:%0A${orderText}%0A`+
+`Total: Rs ${total}%0A%0A`+
+`Payment sent to 03279432355 via JazzCash/Easypaisa.%0A`+
+`Screenshot attached.`
+
+window.open("https://wa.me/923279432355?text="+message,"_blank")
+
+}
+
+/* PRODUCTS DATA */
+const products=[
+
+{
+name:"Stylish Patterned Brown Loafers",
+price:2500,
+images:[
+"https://i.ibb.co/kg4fP3X6/Generated-Image-March-13-2026-1-51-PM.png",
+"https://i.ibb.co/LhYSjtx2/Hyperrealistic-photograph-of-the-same-brown-leathe-delpmaspu.jpg",
+"https://i.ibb.co/HpY6LyqW/Generated-Image-March-13-2026-12-31-PM.png"
+]
+},
+
+{
+name:"Golden Gleam Black Loafers",
+price:2400,
+images:[
+"https://i.ibb.co/Vcj9bh4m/Generated-Image-March-15-2026-11-16-AM.png",
+"https://i.ibb.co/ZzwH3bth/Generated-Image-March-15-2026-11-17-AM.png",
+"https://i.ibb.co/mFD3Z1S7/Generated-Image-March-15-2026-11-14-AM.png"
+]
+},
+
+{
+name:"Brownstone LV Luxe Loafers",
+price:2400,
+images:[
+"https://i.ibb.co/zh6T8T0Z/Generated-Image-March-15-2026-11-29-AM.png",
+"https://i.ibb.co/rRnPB1Gh/Generated-Image-March-15-2026-11-37-AM.png",
+"https://i.ibb.co/yn53QBZ5/light-brown-loafer.jpg"
+]
+},
+
+{
+name:"Blue Striped Fusion",
+price:2200,
+images:[
+"https://i.ibb.co/20ZwZLt8/Generated-Image-March-15-2026-11-42-AM.png",
+"https://i.ibb.co/nN3XBxBJ/Generated-Image-March-15-2026-11-48-AM.png",
+"https://i.ibb.co/MDRdRKfS/1773557601662.png"
+]
+},
+
+{
+name:"Black LV Luxe Loafers",
+price:2000,
+images:[
+"https://i.ibb.co/sfP2bVN/Generated-Image-March-15-2026-1-51-PM.png",
+"https://i.ibb.co/mVC4Dw4z/Generated-Image-March-15-2026-1-57-PM.png",
+"https://i.ibb.co/60GBDZ3p/Generated-Image-March-15-2026-1-24-PM.png"
+]
+},
+
+{
+name:"LV Simple Black Loafers",
+price:1800,
+images:[
+"https://i.ibb.co/s9ncg9n8/Generated-Image-March-15-2026-11-57-AM.png",
+"https://i.ibb.co/fGptRLLD/Generated-Image-March-15-2026-12-12-PM.png",
+"https://i.ibb.co/m5WvwTN1/Generated-Image-March-15-2026-12-36-PM.png"
+]
+},
+
+{
+name:"Dark Brown Luxe Loafers",
+price:2500,
+images:[
+"https://i.ibb.co/VcTXK25r/Generated-Image-March-15-2026-1-35-PM.png",
+"https://i.ibb.co/cKSpwg30/Generated-Image-March-15-2026-12-57-PM.png",
+"https://i.ibb.co/ZR7PhJ3f/Generated-Image-March-15-2026-1-01-PM.png"
+]
+},
+
+{
+name:"Light Brown Loafers",
+price:1800,
+images:[
+"https://i.ibb.co/QvY9Ntsw/Generated-Image-March-15-2026-12-53-PM.png",
+"https://i.ibb.co/sd3dpMPB/Generated-Image-March-15-2026-12-54-PM.png",
+"https://i.ibb.co/gZ5S9Yfp/Generated-Image-March-15-2026-12-55-PM.png"
+]
+}
+
+]
+
+const carousel=document.getElementById("carousel")
+
+products.forEach((p,i)=>{
+
+let slides=""
+
+p.images.forEach((img,index)=>{
+slides+=`<img src="${img}" class="${index==0?"active":""}">`
+})
+
+let card=document.createElement("div")
+card.className="product"
+
+card.innerHTML=`
+
+<div class="product-slider">
+
+${slides}
+
+<button class="slide-btn prev" onclick="changeSlide(this,-1)">❮</button>
+<button class="slide-btn next" onclick="changeSlide(this,1)">❯</button>
+
+</div>
+
+<h3>${p.name}</h3>
+
+<div class="price">Rs ${p.price}</div>
+
+<select id="size${i}">
+<option>Size 7</option>
+<option>Size 8</option>
+<option>Size 9</option>
+<option>Size 10</option>
+</select>
+
+<button class="add" onclick="addCart('${p.name}',${p.price},'size${i}')">
+
+Add to Cart
+
+</button>
+
+`
+
+carousel.appendChild(card)
+
+})
+
+function changeSlide(btn,dir){
+
+let slider=btn.parentElement
+let images=slider.querySelectorAll("img")
+
+let current=0
+
+images.forEach((img,i)=>{
+if(img.classList.contains("active")) current=i
+})
+
+images[current].classList.remove("active")
+
+let next=current+dir
+
+if(next<0) next=images.length-1
+if(next>=images.length) next=0
+
+images[next].classList.add("active")
+
+}
+
+</script>
+
+</body>
+</html>
