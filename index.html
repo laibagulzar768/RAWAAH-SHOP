@@ -1,483 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
 <title>RAWAAH | TIME MOTION YOU</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
+body{background:#f7f7f7;color:#222;overflow-x:hidden;}
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins;
-}
+/* HERO */
+.hero-container{height:100vh;position:relative;overflow:hidden;}
+.hero{height:100%;width:300%;display:flex;animation:heroSlide 25s infinite ease-in-out;}
+.hero-slide{width:33.333%;position:relative;display:flex;align-items:center;justify-content:center;}
+.hero-slide:nth-child(1){background:url("https://i.ibb.co/hJVN5DSY/RAWAAH.jpg") center/cover no-repeat;}
+.hero-slide:nth-child(2){background:url("https://i.ibb.co/kg4fP3X6/Generated-Image-March-13-2026-1-51-PM.png") center/cover no-repeat;}
+.hero-slide:nth-child(3){background:url("https://i.ibb.co/Vcj9bh4m/Generated-Image-March-15-2026-11-16-AM.png") center/cover no-repeat;}
+.hero-slide::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.35), rgba(0,0,0,0.65));}
+.hero-content{position:relative;z-index:2;text-align:center;color:white;padding:20px;max-width:600px;animation:heroFade 1.2s ease 0.5s both;}
+.hero-content h1{font-size:64px;letter-spacing:8px;font-weight:600;margin-bottom:10px;}
+.hero-content p{font-size:18px;letter-spacing:3px;margin-bottom:30px;opacity:0.9;}
+.shop-btn{background:white;color:black;padding:14px 40px;border:none;border-radius:40px;font-size:16px;font-weight:600;cursor:pointer;transition:all .35s ease;}
+.shop-btn:hover{background:black;color:white;transform:translateY(-3px);}
+@keyframes heroSlide{0%,33.33%{transform:translateX(0);}33.34%,66.66%{transform:translateX(-33.333%);}66.67%,100%{transform:translateX(-66.666%);}}
+@keyframes heroFade{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:768px){.hero-content h1{font-size:42px;letter-spacing:4px;}.hero-content p{font-size:16px;}}
 
-body{
-background:#f7f7f7;
-color:#222;
-overflow-x:hidden;
-}
+/* PRODUCTS GRID */
+.products{padding:80px 20px;max-width:1200px;margin:0 auto;position:relative;z-index:1;}
+.products h2{text-align:center;margin-bottom:50px;font-size:36px;}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:30px;}
 
-/* HERO SECTION WITH SLIDING ANIMATION */
-.hero-container{
-height:100vh;
-position:relative;
-overflow:hidden;
-}
+/* PRODUCT CARD */
+.product{background:white;border-radius:15px;padding:25px;box-shadow:0 10px 30px rgba(0,0,0,0.15);text-align:center;transition:all 0.3s ease;position:relative;overflow:hidden;}
+.product:hover{transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,0.25);}
+.product-slider{position:relative;height:220px;overflow:hidden;border-radius:12px;margin-bottom:20px;}
+.product-slider img{width:100%;height:220px;object-fit:cover;display:none;border-radius:12px;transition:opacity 0.5s ease;}
+.product-slider img.active{display:block;}
+.slide-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.7);color:white;border:none;padding:8px 12px;cursor:pointer;border-radius:50%;font-size:14px;transition:all 0.3s ease;z-index:10;}
+.slide-btn:hover{background:rgba(0,0,0,0.9);transform:translateY(-50%) scale(1.1);}
+.prev{left:10px;}
+.next{right:10px;}
+.product h3{font-size:18px;margin-bottom:10px;color:#222;}
+.price{font-weight:600;font-size:22px;color:#000;margin-bottom:15px;}
+select{padding:10px 15px;margin-bottom:15px;border:1px solid #ddd;border-radius:25px;font-size:14px;width:100%;background:white;}
+.add{background:black;color:white;border:none;padding:12px 25px;border-radius:25px;cursor:pointer;font-weight:600;font-size:15px;transition:all 0.3s ease;width:100%;}
+.add:hover{background:#333;transform:translateY(-2px);}
 
-.hero{
-height:100vh;
-position:absolute;
-top:0;
-left:0;
-width:300%;
-display:flex;
-animation:heroSlide 25s infinite ease-in-out;
-}
+/* CART */
+.cart-icon{position:fixed;top:20px;right:20px;background:black;color:white;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;font-size:20px;box-shadow:0 5px 20px rgba(0,0,0,0.3);}
+.cart-count{position:absolute;top:-3px;right:-3px;background:#ff4444;color:white;padding:4px 6px;font-size:11px;border-radius:50%;min-width:18px;text-align:center;}
+.cart{position:fixed;right:-380px;top:0;width:380px;height:100vh;background:white;padding:30px;box-shadow:-5px 0 25px rgba(0,0,0,0.3);transition:.4s;overflow:auto;z-index:10000;}
+.cart.open{right:0;}
+.cart h3{margin-bottom:25px;font-size:24px;color:#222;}
+.cart-item{display:flex;justify-content:space-between;margin-bottom:15px;padding:15px;background:#f8f8f8;border-radius:8px;}
+.total{font-weight:bold;margin:25px 0;font-size:20px;color:#000;padding:15px;background:#f0f0f0;border-radius:8px;text-align:center;}
+input{width:100%;padding:12px 15px;margin-top:10px;border:1px solid #ddd;border-radius:8px;font-size:14px;}
+.paymentBox{margin-top:20px;background:linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);padding:25px;border-radius:12px;line-height:1.6;text-align:center;}
+.payBtn{width:100%;margin-top:20px;padding:15px;background:#25D366;border:none;color:white;font-weight:600;border-radius:10px;cursor:pointer;font-size:16px;transition:all 0.3s ease;}
+.payBtn:hover{background:#128C7E;transform:translateY(-2px);}
 
-.hero-slide{
-width:33.333%;
-position:relative;
-display:flex;
-align-items:center;
-justify-content:center;
-}
+/* WHATSAPP */
+.whatsapp{position:fixed;bottom:25px;right:25px;background:#25D366;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;color:white;text-decoration:none;z-index:9998;box-shadow:0 5px 20px rgba(37,211,102,0.4);transition:all 0.3s ease;}
+.whatsapp:hover{transform:scale(1.1);}
 
-.hero-slide:nth-child(1){
-background:url("https://i.ibb.co/hJVN5DSY/RAWAAH.jpg") center/cover no-repeat;
-}
+/* CART BACKDROP */
+.cart-backdrop{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9995;display:none;}
+.cart.open ~ .cart-backdrop{display:block;}
 
-.hero-slide:nth-child(2){
-background:url("https://i.ibb.co/kg4fP3X6/Generated-Image-March-13-2026-1-51-PM.png") center/cover no-repeat;
-}
-
-.hero-slide:nth-child(3){
-background:url("https://i.ibb.co/Vcj9bh4m/Generated-Image-March-15-2026-11-16-AM.png") center/cover no-repeat;
-}
-
-/* Gradient overlay */
-.hero-slide::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:linear-gradient(
-to bottom,
-rgba(0,0,0,0.55),
-rgba(0,0,0,0.35),
-rgba(0,0,0,0.65)
-);
-}
-
-/* Content */
-.hero-content{
-position:relative;
-z-index:2;
-text-align:center;
-color:white;
-padding:20px;
-max-width:600px;
-animation:heroFade 1.2s ease 0.5s both;
-}
-
-.hero-content h1{
-font-size:64px;
-letter-spacing:8px;
-font-weight:600;
-margin-bottom:10px;
-}
-
-.hero-content p{
-font-size:18px;
-letter-spacing:3px;
-margin-bottom:30px;
-opacity:0.9;
-}
-
-.hero-content .slide-title{
-font-size:24px;
-margin-bottom:10px;
-opacity:0.95;
-}
-
-/* Button */
-.shop-btn{
-background:white;
-color:black;
-padding:14px 40px;
-border:none;
-border-radius:40px;
-font-size:16px;
-font-weight:600;
-cursor:pointer;
-transition:all .35s ease;
-}
-
-.shop-btn:hover{
-background:black;
-color:white;
-transform:translateY(-3px);
-}
-
-/* Hero Animations */
-@keyframes heroSlide{
-0%, 33.33% { transform: translateX(0); }
-33.34%, 66.66% { transform: translateX(-33.333%); }
-66.67%, 100% { transform: translateX(-66.666%); }
-}
-
-@keyframes heroFade{
-from{
-opacity:0;
-transform:translateY(40px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* Mobile */
-@media(max-width:768px){
-.hero-content h1{
-font-size:42px;
-letter-spacing:4px;
-}
-.hero-content p{
-font-size:16px;
-}
-}
-
-/* PRODUCTS - VERTICAL GRID */
-.products{
-padding:80px 20px;
-position:relative;
-z-index:1;
-max-width:1200px;
-margin:0 auto;
-}
-
-.products h2{
-text-align:center;
-margin-bottom:50px;
-font-size:36px;
-}
-
-/* VERTICAL PRODUCT GRID */
-.product-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-gap:30px;
-max-width:1200px;
-margin:0 auto;
-}
-
-.product{
-background:white;
-border-radius:15px;
-padding:25px;
-box-shadow:0 10px 30px rgba(0,0,0,0.15);
-text-align:center;
-transition:all 0.3s ease;
-position:relative;
-overflow:hidden;
-}
-
-.product:hover{
-transform:translateY(-10px);
-box-shadow:0 20px 40px rgba(0,0,0,0.25);
-}
-
-/* IMAGE SLIDER */
-.product-slider{
-position:relative;
-height:220px;
-overflow:hidden;
-border-radius:12px;
-margin-bottom:20px;
-}
-
-.product-slider img{
-width:100%;
-height:220px;
-object-fit:cover;
-display:none;
-border-radius:12px;
-transition:opacity 0.5s ease;
-}
-
-.product-slider img.active{
-display:block;
-}
-
-.slide-btn{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:rgba(0,0,0,0.7);
-color:white;
-border:none;
-padding:8px 12px;
-cursor:pointer;
-border-radius:50%;
-font-size:14px;
-transition:all 0.3s ease;
-z-index:10;
-}
-
-.slide-btn:hover{
-background:rgba(0,0,0,0.9);
-transform:translateY(-50%) scale(1.1);
-}
-
-.prev{left:10px}
-.next{right:10px}
-
-.product h3{
-font-size:18px;
-margin-bottom:10px;
-color:#222;
-}
-
-.price{
-font-weight:600;
-font-size:22px;
-color:#000;
-margin-bottom:15px;
-}
-
-select{
-padding:10px 15px;
-margin-bottom:15px;
-border:1px solid #ddd;
-border-radius:25px;
-font-size:14px;
-width:100%;
-background:white;
-}
-
-.add{
-background:black;
-color:white;
-border:none;
-padding:12px 25px;
-border-radius:25px;
-cursor:pointer;
-font-weight:600;
-font-size:15px;
-transition:all 0.3s ease;
-width:100%;
-}
-
-.add:hover{
-background:#333;
-transform:translateY(-2px);
-}
-
-/* CART - FIXED Z-INDEX */
-.cart-icon{
-position:fixed;
-top:20px;
-right:20px;
-background:black;
-color:white;
-width:55px;
-height:55px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-z-index:9999;
-font-size:20px;
-box-shadow:0 5px 20px rgba(0,0,0,0.3);
-}
-
-.cart-count{
-position:absolute;
-top:-3px;
-right:-3px;
-background:#ff4444;
-color:white;
-padding:4px 6px;
-font-size:11px;
-border-radius:50%;
-min-width:18px;
-text-align:center;
-}
-
-.cart{
-position:fixed;
-right:-380px;
-top:0;
-width:380px;
-height:100vh;
-background:white;
-padding:30px;
-box-shadow:-5px 0 25px rgba(0,0,0,0.3);
-transition:.4s;
-overflow:auto;
-z-index:10000;
-}
-
-.cart.open{
-right:0;
-}
-
-.cart h3{
-margin-bottom:25px;
-font-size:24px;
-color:#222;
-}
-
-.cart-item{
-display:flex;
-justify-content:space-between;
-margin-bottom:15px;
-padding:15px;
-background:#f8f8f8;
-border-radius:8px;
-}
-
-.total{
-font-weight:bold;
-margin:25px 0;
-font-size:20px;
-color:#000;
-padding:15px;
-background:#f0f0f0;
-border-radius:8px;
-text-align:center;
-}
-
-input{
-width:100%;
-padding:12px 15px;
-margin-top:10px;
-border:1px solid #ddd;
-border-radius:8px;
-font-size:14px;
-}
-
-.paymentBox{
-margin-top:20px;
-background:linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-padding:25px;
-border-radius:12px;
-line-height:1.6;
-text-align:center;
-}
-
-.paymentBox b{
-color:#333;
-display:block;
-margin-bottom:10px;
-}
-
-.payBtn{
-width:100%;
-margin-top:20px;
-padding:15px;
-background:#25D366;
-border:none;
-color:white;
-font-weight:600;
-border-radius:10px;
-cursor:pointer;
-font-size:16px;
-transition:all 0.3s ease;
-}
-
-.payBtn:hover{
-background:#128C7E;
-transform:translateY(-2px);
-}
-
-/* WHATSAPP BUTTON */
-.whatsapp{
-position:fixed;
-bottom:25px;
-right:25px;
-background:#25D366;
-width:60px;
-height:60px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px;
-color:white;
-text-decoration:none;
-z-index:9998;
-box-shadow:0 5px 20px rgba(37,211,102,0.4);
-transition:all 0.3s ease;
-}
-
-.whatsapp:hover{
-transform:scale(1.1);
-}
-
-/* BACKDROP */
-.cart-backdrop{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-z-index:9995;
-display:none;
-}
-
-.cart.open ~ .cart-backdrop{
-display:block;
-}
-
-/* Mobile Responsive */
-@media(max-width:768px){
-.product-grid{
-grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
-gap:20px;
-padding:0 10px;
-}
-.cart{
-width:100%;
-right:-100%;
-}
-.products{
-padding:60px 10px;
-}
-}
-
+/* MOBILE */
+@media(max-width:768px){.product-grid{grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:20px;padding:0 10px;}.cart{width:100%;right:-100%;}.products{padding:60px 10px;}}
 </style>
 </head>
 
 <body>
 
-<!-- CART BACKDROP -->
+<!-- CART -->
 <div class="cart-backdrop" onclick="toggleCart()"></div>
-
-<div class="cart-icon" onclick="toggleCart()">
-🛒
-<span class="cart-count" id="cartCount">0</span>
-</div>
-
+<div class="cart-icon" onclick="toggleCart()">🛒<span class="cart-count" id="cartCount">0</span></div>
 <div class="cart" id="cart">
 <h3>🛒 Your Cart</h3>
 <div id="cartItems"></div>
 <div class="total" id="total">Total: Rs 0</div>
-
 <input id="name" placeholder="👤 Your Name">
 <input id="phone" placeholder="📞 Phone Number">
-
 <div class="paymentBox">
 <b>💳 Payment Method</b><br><br>
 Send payment via:<br>
@@ -485,39 +92,19 @@ Send payment via:<br>
 <b>Number: 03279432355</b><br><br>
 📱 After payment, click WhatsApp & attach screenshot
 </div>
-
-<button onclick="sendWhatsAppOrder()" class="payBtn">
-📲 Send Order on WhatsApp
-</button>
+<button onclick="sendWhatsAppOrder()" class="payBtn">📲 Send Order on WhatsApp</button>
 </div>
 
-<!-- HERO SECTION WITH SLIDING -->
+<!-- HERO -->
 <div class="hero-container">
-<div class="hero">
-<div class="hero-slide">
-<div class="hero-content">
-<h1>RAWAAH</h1>
-<p>TIME MOTION YOU</p>
-<button class="shop-btn" onclick="scrollProducts()">Shop Now</button>
-</div>
-</div>
-<div class="hero-slide">
-<div class="hero-content">
-<h1>New Collection</h1>
-<p>PREMIUM LOAFERS</p>
-<button class="shop-btn" onclick="scrollProducts()">Shop Now</button>
-</div>
-</div>
-<div class="hero-slide">
-<div class="hero-content">
-<h1>RAWAAH Brand</h1>
-<p>STYLE & COMFORT</p>
-<button class="shop-btn" onclick="scrollProducts()">Shop Now</button>
-</div>
-</div>
-</div>
+  <div class="hero">
+    <div class="hero-slide"><div class="hero-content"><h1>RAWAAH</h1><p>TIME MOTION YOU</p><button class="shop-btn" onclick="scrollProducts()">Shop Now</button></div></div>
+    <div class="hero-slide"><div class="hero-content"><h1>New Collection</h1><p>PREMIUM LOAFERS</p><button class="shop-btn" onclick="scrollProducts()">Shop Now</button></div></div>
+    <div class="hero-slide"><div class="hero-content"><h1>RAWAAH Brand</h1><p>STYLE & COMFORT</p><button class="shop-btn" onclick="scrollProducts()">Shop Now</button></div></div>
+  </div>
 </div>
 
+<!-- PRODUCTS -->
 <section class="products" id="products">
 <h2>👟 Our Collection</h2>
 <div class="product-grid" id="productGrid"></div>
@@ -526,187 +113,59 @@ Send payment via:<br>
 <a class="whatsapp" href="https://wa.me/923279432355">💬</a>
 
 <script>
-
-let cart=[]
-
-function scrollProducts(){
-document.getElementById("products").scrollIntoView({behavior:"smooth"})
-}
-
-function toggleCart(){
-document.getElementById("cart").classList.toggle("open")
-}
-
-function addCart(name,price,sizeId){
-let size=document.getElementById(sizeId).value
-cart.push({name,price,size})
-updateCart()
-}
-
+let cart=[];
+function scrollProducts(){document.getElementById("products").scrollIntoView({behavior:"smooth"})}
+function toggleCart(){document.getElementById("cart").classList.toggle("open")}
+function addCart(name,price,sizeId){let size=document.getElementById(sizeId).value;cart.push({name,price,size});updateCart()}
 function updateCart(){
-let items=document.getElementById("cartItems")
-items.innerHTML=""
-let total=0
-
-cart.forEach(i=>{
-total+=i.price
-items.innerHTML+=`
-<div class="cart-item">
-<span>${i.name}<br><small>(${i.size})</small></span>
-<span>Rs ${i.price}</span>
-</div>
-`
-})
-
-document.getElementById("cartCount").innerText=cart.length
-document.getElementById("total").innerText="Total: Rs "+total
+let items=document.getElementById("cartItems");items.innerHTML="";let total=0;
+cart.forEach(i=>{total+=i.price;items.innerHTML+=`<div class="cart-item"><span>${i.name}<br><small>(${i.size})</small></span><span>Rs ${i.price}</span></div>`})
+document.getElementById("cartCount").innerText=cart.length;
+document.getElementById("total").innerText="Total: Rs "+total;
 }
-
 function sendWhatsAppOrder(){
-let name=document.getElementById("name").value
-let phone=document.getElementById("phone").value
-
-if(!name || !phone){
-alert("Please enter your name and phone number!")
-return
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+if(!name||!phone){alert("Please enter your name and phone number!");return}
+let total=0;let orderText="";
+cart.forEach(item=>{total+=item.price;orderText+=`• ${item.name} (${item.size}) - Rs ${item.price}%0A`});
+let message=`🛒 RAWAAH ORDER%0A%0A👤 Customer: ${name}%0A📞 Phone: ${phone}%0A%0A🛍️ Items:%0A${orderText}%0A💰 Total: Rs ${total}%0A%0A💳 Payment sent to 03279432355 (JazzCash/Easypaisa)%0A📸 Screenshot attached.`;
+window.open("https://wa.me/923279432355?text="+message,"_blank");
+cart=[];updateCart();toggleCart();
 }
 
-let total=0
-let orderText=""
-cart.forEach(item=>{
-total+=item.price
-orderText+=`• ${item.name} (${item.size}) - Rs ${item.price}%0A`
-})
-
-let message=`🛒 RAWAAH ORDER%0A%0A👤 Customer: ${name}%0A📞 Phone: ${phone}%0A%0A🛍️ Items:%0A${orderText}%0A💰 Total: Rs ${total}%0A%0A💳 Payment sent to 03279432355 (JazzCash/Easypaisa)%0A📸 Screenshot attached.`
-
-window.open("https://wa.me/923279432355?text="+message,"_blank")
-cart=[]
-updateCart()
-toggleCart()
-}
-
+/* PRODUCT DATA */
 const products=[
-{
-name:"Stylish Patterned Brown Loafers",
-price:2500,
-images:[
-"https://i.ibb.co/kg4fP3X6/Generated-Image-March-13-2026-1-51-PM.png",
-"https://i.ibb.co/LhYSjtx2/Hyperrealistic-photograph-of-the-same-brown-leathe-delpmaspu.jpg",
-"https://i.ibb.co/HpY6LyqW/Generated-Image-March-13-2026-12-31-PM.png"
-]
-},
-{
-name:"Golden Gleam Black Loafers",
-price:2400,
-images:[
-"https://i.ibb.co/Vcj9bh4m/Generated-Image-March-15-2026-11-16-AM.png",
-"https://i.ibb.co/ZzwH3bth/Generated-Image-March-15-2026-11-17-AM.png",
-"https://i.ibb.co/mFD3Z1S7/Generated-Image-March-15-2026-11-14-AM.png"
-]
-},
-{
-name:"Brownstone LV Luxe Loafers",
-price:2400,
-images:[
-"https://i.ibb.co/zh6T8T0Z/Generated-Image-March-15-2026-11-29-AM.png",
-"https://i.ibb.co/rRnPB1Gh/Generated-Image-March-15-2026-11-37-AM.png",
-"https://i.ibb.co/yn53QBZ5/light-brown-loafer.jpg"
-]
-},
-{
-name:"Blue Striped Fusion",
-price:2200,
-images:[
-"https://i.ibb.co/20ZwZLt8/Generated-Image-March-15-2026-11-42-AM.png",
-"https://i.ibb.co/nN3XBxBJ/Generated-Image-March-15-2026-11-48-AM.png",
-"https://i.ibb.co/MDRdRKfS/1773557601662.png"
-]
-},
-{
-name:"Black LV Luxe Loafers",
-price:2000,
-images:[
-"https://i.ibb.co/sfP2bVN/Generated-Image-March-15-2026-1-51-PM.png",
-"https://i.ibb.co/mVC4Dw4z/Generated-Image-March-15-2026-1-57-PM.png",
-"https://i.ibb.co/60GBDZ3p/Generated-Image-March-15-2026-1-24-PM.png"
-]
-},
-{
-name:"LV Simple Black Loafers",
-price:1800,
-images:[
-"https://i.ibb.co/s9ncg9n8/Generated-Image-March-15-2026-11-57-AM.png",
-"https://i.ibb.co/fGptRLLD/Generated-Image-March-15-2026-12-12-PM.png",
-"https://i.ibb.co/m5WvwTN1/Generated-Image-March-15-2026-12-36-PM.png"
-]
-},
-{
-name:"Dark Brown Luxe Loafers",
-price:2500,
-images:[
-"https://i.ibb.co/VcTXK25r/Generated-Image-March-15-2026-1-35-PM.png",
-"https://i.ibb.co/cKSpwg30/Generated-Image-March-15-2026-12-57-PM.png",
-"https://i.ibb.co/ZR7PhJ3f/Generated-Image-March-15-2026-1-01-PM.png"
-]
-},
-{
-name:"Light Brown Loafers",
-price:1800,
-images:[
-"https://i.ibb.co/QvY9Ntsw/Generated-Image-March-15-2026-12-53-PM.png",
-"https://i.ibb.co/sd3dpMPB/Generated-Image-March-15-2026-12-54-PM.png",
-"https://i.ibb.co/gZ5S9Yfp/Generated-Image-March-15-2026-12-55-PM.png"
-]
-}
-]
+{name:"Stylish Patterned Brown Loafers",price:2500,images:["https://i.ibb.co/kg4fP3X6/Generated-Image-March-13-2026-1-51-PM.png","https://i.ibb.co/LhYSjtx2/Hyperrealistic-photograph-of-the-same-brown-leathe-delpmaspu.jpg","https://i.ibb.co/HpY6LyqW/Generated-Image-March-13-2026-12-31-PM.png"]},
+{name:"Golden Gleam Black Loafers",price:2400,images:["https://i.ibb.co/Vcj9bh4m/Generated-Image-March-15-2026-11-16-AM.png","https://i.ibb.co/ZzwH3bth/Generated-Image-March-15-2026-11-17-AM.png","https://i.ibb.co/mFD3Z1S7/Generated-Image-March-15-2026-11-14-AM.png"]},
+{name:"Brownstone LV Luxe Loafers",price:2400,images:["https://i.ibb.co/zh6T8T0Z/Generated-Image-March-15-2026-11-29-AM.png","https://i.ibb.co/rRnPB1Gh/Generated-Image-March-15-2026-11-37-AM.png","https://i.ibb.co/yn53QBZ5/light-brown-loafer.jpg"]},
+{name:"Blue Striped Fusion",price:2200,images:["https://i.ibb.co/20ZwZLt8/Generated-Image-March-15-2026-11-42-AM.png","https://i.ibb.co/nN3XBxBJ/Generated-Image-March-15-2026-11-48-AM.png","https://i.ibb.co/MDRdRKfS/1773557601662.png"]},
+{name:"Black LV Luxe Loafers",price:2000,images:["https://i.ibb.co/sfP2bVN/Generated-Image-March-15-2026-1-51-PM.png","https://i.ibb.co/mVC4Dw4z/Generated-Image-March-15-2026-1-57-PM.png","https://i.ibb.co/60GBDZ3p/Generated-Image-March-15-2026-1-24-PM.png"]},
+{name:"LV Simple Black Loafers",price:1800,images:["https://i.ibb.co/s9ncg9n8/Generated-Image-March-15-2026-11-57-AM.png","https://i.ibb.co/fGptRLLD/Generated-Image-March-15-2026-12-12-PM.png","https://i.ibb.co/m5WvwTN1/Generated-Image-March-15-2026-12-36-PM.png"]},
+{name:"Dark Brown Luxe Loafers",price:2500,images:["https://i.ibb.co/VcTXK25r/Generated-Image-March-15-2026-1-35-PM.png","https://i.ibb.co/cKSpwg30/Generated-Image-March-15-2026-12-57-PM.png","https://i.ibb.co/ZR7PhJ3f/Generated-Image-March-15-2026-1-01-PM.png"]},
+{name:"Light Brown Loafers",price:1800,images:["https://i.ibb.co/QvY9Ntsw/Generated-Image-March-15-2026-12-53-PM.png","https://i.ibb.co/sd3dpMPB/Generated-Image-March-15-2026-12-54-PM.png","https://i.ibb.co/gZ5S9Yfp/Generated-Image-March-15-2026-12-55-PM.png"]}
+];
 
-const productGrid=document.getElementById("productGrid")
-
+const productGrid=document.getElementById("productGrid");
 products.forEach((p,i)=>{
-let slides=""
-p.images.forEach((img,index)=>{
-slides+=`<img src="${img}" class="${index==0?"active":""}">`
-})
+  let slides="";
+  p.images.forEach((img,index)=>{slides+=`<img src="${img}" class="${index===0?'active':''}">`});
+  let card=document.createElement("div");card.className="product";
+  card.innerHTML=`<div class="product-slider">${slides}<button class="slide-btn prev" onclick="changeSlide(this,-1)">❮</button><button class="slide-btn next" onclick="changeSlide(this,1)">❯</button></div><h3>${p.name}</h3><div class="price">Rs ${p.price}</div><select id="size${i}"><option>Size 7</option><option>Size 8</option><option>Size 9</option><option>Size 10</option></select><button class="add" onclick="addCart('${p.name}',${p.price},'size${i}')">Add to Cart</button>`;
+  productGrid.appendChild(card);
+});
 
-let card=document.createElement("div")
-card.className="product"
-
-card.innerHTML=`
-<div class="product-slider">
-${slides}
-<button class="slide-btn prev" onclick="changeSlide(this,-1)">❮</button>
-<button class="slide-btn next" onclick="changeSlide(this,1)">❯</button>
-</div>
-<h3>${p.name}</h3>
-<div class="price">Rs ${p.price}</div>
-<select id="size${i}">
-<option>Size 7</option>
-<option>Size 8</option>
-<option>Size 9</option>
-<option>Size 10</option>
-</select>
-<button class="add" onclick="addCart('${p.name}',${p.price},'size${i}')">
-Add to Cart
-</button>
-`
-productGrid.appendChild(card)
-})
-
-function changeSlide(btn, dir) {
-  let slider = btn.parentElement;
-  let images = slider.querySelectorAll("img");
-  let current = 0;
-
-  images.forEach((img, i) => {
-    if (img.classList.contains("active")) current = i;
-  });
-
+function changeSlide(btn,dir){
+  let slider=btn.parentElement;
+  let images=slider.querySelectorAll("img");
+  let current=0;
+  images.forEach((img,i)=>{if(img.classList.contains("active")) current=i});
   images[current].classList.remove("active");
-  let next = current + dir;
-
-  if (next < 0) next = images.length - 1;
-  if (next >= images.length) next = 0;
-
+  let next=current+dir;
+  if(next<0) next=images.length-1;
+  if(next>=images.length) next=0;
   images[next].classList.add("active");
 }
+</script>
+</body>
+</html>
